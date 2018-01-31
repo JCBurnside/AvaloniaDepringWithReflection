@@ -2,13 +2,14 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:local="clr-namespace:ReflectionDerping;assembly=ReflectionDerping"
         MinWidth="500" MinHeight="300">
-  <Window.DataContext>
-    <local:BasicViewModel/>
-  </Window.DataContext>
-  <StackPanel>
-    <TextBlock>Hello world!</TextBlock>
-    <!--<CheckBox IsChecked="{Binding Path=IsChecked}" IsThreeState="True"/>-->
-    <!--<TextBlock Text="{Binding IsChecked, Converter={StyleResource NullableValueConverter}}"/>-->
-    <TextBlock Text="{Binding Path=X}"/>
-  </StackPanel>
+  
+  <DockPanel>
+    <TreeView DockPanel.Dock="Left" Items="{Binding}">
+      <TreeView.ItemTemplate>
+        <TreeDataTemplate ItemsSource="{Binding Sub}">
+          <TextBlock Text="{Binding Name}"/>
+        </TreeDataTemplate>
+      </TreeView.ItemTemplate>
+    </TreeView> 
+  </DockPanel>
 </Window>

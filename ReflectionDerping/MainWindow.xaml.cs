@@ -1,7 +1,11 @@
 ﻿using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
+using System.Collections.Generic;
 using System.IO;
+using System.Reflection;
+using Serilog;
+using System.Threading.Tasks;
 
 namespace ReflectionDerping
 {
@@ -9,17 +13,35 @@ namespace ReflectionDerping
     {
         public MainWindow()
         {
-            this.InitializeComponent();
+            InitializeComponent();
             this.AttachDevTools();
-            if(this.DataContext is BasicViewModel ctx){
-                ctx.X = (1.0 / 3.0) + (1.0 / 3.0) + (1.0 / 3.0);
-                this.DataContext = ctx;
-            }
+
         }
         private void InitializeComponent()
         {
-            
             AvaloniaXamlLoader.Load(this);
+        }
+
+
+    }
+
+    internal class FilesTreeView
+    {
+        public string Name { get; private set; }
+
+        public IList<FilesTreeView> Sub { get; private set; } = new List<FilesTreeView>();
+        public IList<string> Files { get; private set; } = new List<string>();
+        public FilesTreeView(DirectoryInfo directory)
+        {
+            Name = directory.Name;
+            foreach (FileInfo info in directory.EnumerateFiles())
+            {
+                Files.Add(info.Name);
+            }
+            foreach (DirectoryInfo info in directory.EnumerateDirectories())
+            {
+                Sub.Add(new FilesTreeView(info));
+            }
         }
     }
 }
