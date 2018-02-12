@@ -27,7 +27,7 @@ namespace ReflectionDerping
                 .Start<MainWindow>(()=> {
                     var Selected = (new OpenFolderDialog() { DefaultDirectory = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), Title = "Select Folder " }).ShowAsync().GetAwaiter().GetResult();
                     if (string.IsNullOrWhiteSpace(Selected)) Selected = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
-                    return new FilesTreeView(new DirectoryInfo(Selected));
+                    return new FilesTreeView(new DirectoryInfo(Selected)).Sub;
                 });
         }
 

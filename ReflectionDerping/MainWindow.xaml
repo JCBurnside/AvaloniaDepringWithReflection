@@ -2,14 +2,22 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:local="clr-namespace:ReflectionDerping;assembly=ReflectionDerping"
         MinWidth="500" MinHeight="300">
-  
+
   <DockPanel>
-    <TreeView DockPanel.Dock="Left" Items="{Binding}">
+    
+    <Button DockPanel.Dock="Bottom" Name="Change" >Change location</Button>
+    <Menu DockPanel.Dock="Top" >
+      <MenuItem Header="File">
+        <MenuItem Header="Open Folder" />
+      </MenuItem>
+    </Menu>
+    
+    <TreeView Items="{Binding}" Height="250">
       <TreeView.ItemTemplate>
         <TreeDataTemplate ItemsSource="{Binding Sub}">
           <TextBlock Text="{Binding Name}"/>
         </TreeDataTemplate>
       </TreeView.ItemTemplate>
-    </TreeView> 
+    </TreeView>
   </DockPanel>
 </Window>
